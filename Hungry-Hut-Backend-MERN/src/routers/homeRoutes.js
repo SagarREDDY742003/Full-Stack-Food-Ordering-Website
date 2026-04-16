@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-const router = Router();
+const homeRouter = Router();
 
-router.get("", async (req, res) => {
+homeRouter.get("/", async (req, res) => {
     res.status(200).send({ message: "Welcome to online food ordering website" });
 });
 

@@ -12,7 +12,7 @@ export function generateToken(userId) {
     { expiresIn: "48h" }
   );
 }
-
+           
 export function getUserIdFromToken(token) {
   const decodedToken = jwt.verify(token, SECRET_KEY);
   return decodedToken.userId;

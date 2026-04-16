@@ -1,8 +1,9 @@
-const { getUserIdFromToken } = require("../config/jwtProvider");
-import {bcrypt} from 'bcrypt'
-import User from '../models/user.model'
 
-export async function createUser(userData){
+import bcrypt from 'bcrypt';
+import User from '../models/user.js';
+import { getUserIdFromToken } from '../config/jwtProvider.js';
+
+export const createUser = async(userData) => {
     try {
         let {fullName,email,password,role} = userData;
         const isUserExist = await User.findOne({email:email})
@@ -27,7 +28,7 @@ export async function createUser(userData){
     }
 };
 
-export async function getUserByEmail(email){
+export const getUserByEmail = async(email) => {
     try {
         const user = await User.findOne({email:email});
         if(!user){
@@ -39,7 +40,7 @@ export async function getUserByEmail(email){
     }
 };
 
-export async function findUserById(userId){
+export const findUserById = async(userId) => {
     try {
         const user = await User.findById(userId).populate("addresses");
         if(!user){
@@ -51,7 +52,7 @@ export async function findUserById(userId){
     }
 };
 
-export async function findUserProfileByJwt(jwt){
+export const findUserProfileByJwt = async(jwt) => {
     try {
         const userId = getUserIdFromToken(jwt) ;
         const user = await findUserById(userId);
@@ -61,7 +62,7 @@ export async function findUserProfileByJwt(jwt){
     }
 };
 
-export async function findAllUsers(){
+export const findAllUsers = async() => {
     try {
         const users = await User.find();
         return users;

@@ -5,10 +5,12 @@ dotenv.config();
 
 const mongodbUrl = process.env.MONGODB_URL;
 
-export async function connectDb() {
+const connectDb = async() => {
   try {
     await mongoose.connect(mongodbUrl);
   } catch (error) {
     throw error;
   }
 }
+
+export default connectDb;

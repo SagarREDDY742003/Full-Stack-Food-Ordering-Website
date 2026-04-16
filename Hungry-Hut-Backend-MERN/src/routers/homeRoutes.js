@@ -1,9 +1,9 @@
-const { Router } = require("express");
+import { Router } from "express";
 
 const router = Router();
 
-router.get("",async(req,res) => {
-    res.status(200).send({message:"Welcome to online food ordering website"})
-})
+router.get("", async (req, res) => {
+    res.status(200).send({ message: "Welcome to online food ordering website" });
+});
 
-module.exports = router;
+export default router;

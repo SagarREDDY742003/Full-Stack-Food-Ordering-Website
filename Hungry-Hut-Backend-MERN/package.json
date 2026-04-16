@@ -1,7 +1,7 @@
 {
-  "name": "hungry-hut-backend",
+  "name": "hungry-hut-backend-mern",
   "version": "1.0.0",
-  "description": "hungry hut backend using MERN",
+  "description": "hungry hut backend using mern",
   "license": "ISC",
   "author": "",
   "type": "commonjs",

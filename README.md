@@ -1,4 +1,4 @@
-# Java-Full-Stack-Food-Ordering-Website
+# Full-Stack-Food-Ordering-Website
 
 This is a full-stack web application built using the **Java Full Stack** stack, designed to facilitate seamless food ordering between customers and restaurant owners. It includes secure authentication, role-based access, payment integration, and a polished user interface.
 

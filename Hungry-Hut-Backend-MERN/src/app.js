@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import homeRouter from "./routers/homeRoutes.js";
 import authRouters from "./routers/authRoutes.js";
+import restaurantRoutes from "./routers/restaurantRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -13,5 +14,8 @@ app.use("/", homeRouter);
 
 // Auth routes
 app.use("/auth", authRouters);
+
+// restaurant routes
+app.use("/api", restaurantRoutes);
 
 export default app;

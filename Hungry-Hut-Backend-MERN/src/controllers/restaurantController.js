@@ -7,7 +7,7 @@ import {
   getRestaurantByUserId,
   searchRestaurant,
   updateRestaurantStatus,
-} from "../services/RestaurantService";
+} from "../services/RestaurantService.js";
 
 export const createRestaurantController = async (req, res) => {
   try {
@@ -51,7 +51,7 @@ export const findRestaurantByUserIdController = async (req, res) => {
     const restaurant = await getRestaurantByUserId(user._id);
     res.status(200).json(restaurant);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({ error: error.message });
   }
 };
 
@@ -68,7 +68,7 @@ export const searchRestaurantController = async (req, res) => {
 export const getAllRestaurantsController = async (req, res) => {
   try {
     const restaurants = await getAllRestaurants();
-    res.status(200).json(restaurants);
+    res.status(201).json(restaurants);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -80,7 +80,7 @@ export const findRestaurantByIdController = async (req, res) => {
     const restaurant = await findRestaurantById(id);
     res.status(200).json(restaurant);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({ error: error.message });
   }
 };
 
@@ -88,7 +88,7 @@ export const addToFavoritesController = async (req, res) => {
   try {
     const { id } = req.params;
     const restaurant = await addToFavorites(id, req.user);
-    res.status(200).json(restaurant);
+    res.status(200).json({ message: "Favorites updated", restaurant });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

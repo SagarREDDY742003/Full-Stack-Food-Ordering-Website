@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Address from "../models/address.model";
-import Restaurant from "../models/restaurant.model";
+import Address from "../models/address.model.js";
+import Restaurant from "../models/restaurant.model.js";
 
 export const createRestaurant = async (req, user) => {
   const session = await mongoose.startSession();
@@ -94,9 +94,10 @@ export const addToFavorites = async (restaurantId,user) => {
         const restaurant = await findRestaurantById(restaurantId);
         const dto={
             _id:restaurant._id,
-            title:restaurant.title,
             description:restaurant.description,
             images:restaurant.images,
+            name:restaurant.name,
+            open:restaurant.open,
         }
         const favorites = user.favorites || [];
         const index = favorites.findIndex(favorites => favorites._id.toString()===restaurantId.toString());
@@ -163,6 +164,7 @@ export const deleteRestaurant = async (restaurantId) => {
   try {
     const restaurant = await findRestaurantById(restaurantId);
     await Restaurant.findByIdAndDelete(restaurantId);
+
   } catch (error) {
     throw new Error(error.message);
   }

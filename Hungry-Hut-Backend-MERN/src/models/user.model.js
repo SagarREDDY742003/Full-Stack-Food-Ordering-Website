@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema({
       name: String,
       description: String,
       images: [String], // better to define type for array elements
+      open:Boolean,
     },
   ],
   addresses: [

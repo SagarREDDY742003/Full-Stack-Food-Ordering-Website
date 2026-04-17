@@ -1,7 +1,7 @@
-import { getUserIdFromToken } from "../config/jwtProvider";
-import { findUserById } from "../services/userService";
+import { getUserIdFromToken } from "../config/jwtProvider.js";
+import { findUserById } from "../services/userService.js";
 
-const authenticate = async(req,res,next) => {
+export const authenticate = async(req,res,next) => {
     // Bearer token
     try {
         const token = req.headers.authorization?.split(" ")[1];

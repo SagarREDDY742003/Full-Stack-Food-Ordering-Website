@@ -9,7 +9,10 @@ const FoodSchema = new mongoose.Schema({
     ref: "Category",
   },
   images: [String],
-  available: Boolean,
+  available: {
+    type: Boolean,
+    default: true,
+  },
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",

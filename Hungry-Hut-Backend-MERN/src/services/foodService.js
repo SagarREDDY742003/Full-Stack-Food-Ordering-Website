@@ -1,9 +1,12 @@
+import mongoose from "mongoose";
 import Food from "../models/food.model.js";
 import Restaurant from "../models/restaurant.model.js";
 
-export const createFood = async (req, restaurant) => {
+export const createFood = async (req, restaurant) => {  
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
-    const food = await Food.create({
+    const food = await Food.create([{
       name: req.name,
       description: req.description,
       price: req.price,
@@ -14,11 +17,18 @@ export const createFood = async (req, restaurant) => {
       isSeasonable: req.isSeasonable,
       ingredients: req.ingredients,
       creationDate: new Date(),
-    });
-    restaurant.foods.push(food._id);
-    await restaurant.save();
-    return food;
+    }],{session});
+
+    restaurant.foods.push(food[0]._id);
+    await restaurant.save({session});
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return food[0];
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     throw new Error(error.message);
   }
 };
@@ -78,26 +88,26 @@ export const searchFood = async(keyword) =>{
                 {"foodCategory.name":{$regex:keyword,$options:"i"}},
             ];
         }
-        const foods = await Food.fond(query);
+        const foods = await Food.find(query);
         return foods;
     } catch (error) {
         throw new Error(error.message);
     }
 }
 
-export const findFoodById = async (foodId) => {
-  try {
-    const food = await Food.findById(foodId);
-    if(!food) throw new Error('Food not found');
-    return food;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+// export const findFoodById = async (foodId) => {
+//   try {
+//     const food = await Food.findById(foodId);
+//     if(!food) throw new Error('Food not found');
+//     return food;
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
+// };
 
 export const updateFoodAvailabilityStatus = async (foodId) => {
   try {
-    const food = (await findFoodById(foodId)).populate([
+    const food = await Food.findById(foodId).populate([
         {path:"ingredients",populate:{path:"category",select:"name"}},
         "foodCategory",
         {path:"restaurant",select:"name _id"},

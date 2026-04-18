@@ -1,0 +1,67 @@
+import { addItemToCart, clearCart, findCartByUserId, removeCartItemFromCart, updateCartItemQuantity } from "../services/cartService.js";
+
+const addItemToCartController = async(req,res) => {
+    try {
+        const user = req.user;
+        const cart = await addItemToCart(req.body,user._id);
+        res.status(200).json(cart);
+    } catch (error) {
+        if(error instanceof Error)
+            res.status(400).json({error:error.message});
+        else
+            res.status(500).json({error:"internal server error"});
+    }
+} ;
+
+const updateCartItemQuantityController = async(req,res) => {
+    try {
+        const {cartItemId,quantity} = req.body;
+        const cart = await updateCartItemQuantity(cartItemId,quantity);
+        res.status(200).json(cart);
+    } catch (error) {
+        if(error instanceof Error)
+            res.status(400).json({error:error.message});
+        else
+            res.status(500).json({error:"internal server error"});
+    }
+} ;
+
+const removeItemFromCart = async(req,res) => {
+    try {
+        const {id} = req.body;
+        const user = req.user;
+        const cart = await removeCartItemFromCart(id,user);
+        res.status(200).json(cart);
+    } catch (error) {
+        if(error instanceof Error)
+            res.status(400).json({error:error.message});
+        else
+            res.status(500).json({error:"internal server error"});
+    }
+} ;
+
+const findUserCart = async(req,res) => {
+    try {
+        const user = req.user;
+        const cart = await findCartByUserId(user._id.toString());
+        res.status(200).json(cart);
+    } catch (error) {
+        if(error instanceof Error)
+            res.status(400).json({error:error.message});
+        else
+            res.status(500).json({error:"internal server error"});
+    }
+} ;
+
+const clearCartController = async(req,res) => {
+    try {
+        const user = req.user;
+        const cart = await clearCart(user._id.toString());
+        res.status(200).json(cart);
+    } catch (error) {
+        if(error instanceof Error)
+            res.status(400).json({error:error.message});
+        else
+            res.status(500).json({error:"internal server error"});
+    }
+} ;

@@ -3,7 +3,7 @@ import Order from "../models/order.model.js";
 import OrderItem from "../models/orderItem.model.js";
 import Restaurant from "../models/restaurant.model.js";
 import { calculateCartTotals, findCartByUserId } from "./cartService.js";
-import { generatePaymentLink } from "./paymentService.js";
+import { createPaymentLink} from "./paymentService.js";
 
 export async function createOrder(order, user) {
   try {
@@ -55,7 +55,7 @@ export async function createOrder(order, user) {
     restaurant.orders.push(savedOrder._id);
     await restaurant.save();
 
-    const paymentResponse = await generatePaymentLink(savedOrder);
+    const paymentResponse = await createPaymentLink(savedOrder);
     return paymentResponse;
   } catch (error) {
     throw new Error("Failed to create order");

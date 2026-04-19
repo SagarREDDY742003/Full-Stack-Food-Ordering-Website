@@ -25,6 +25,7 @@ export const createRestaurantController = async (req, res) => {
 export const deleteRestaurantController = async (req, res) => {
   try {
     const { id } = req.params;
+    const user = req.user;
     await deleteRestaurant(id);
     res.status(200).json({
       message: "Restaurant deleted successfully",

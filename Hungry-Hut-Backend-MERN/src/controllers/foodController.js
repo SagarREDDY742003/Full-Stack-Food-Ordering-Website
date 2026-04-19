@@ -1,6 +1,8 @@
 import { createFood, deleteFood, getRestaurantFood, searchFood, updateFoodAvailabilityStatus } from "../services/foodService.js";
 import { findRestaurantById } from "../services/RestaurantService.js";
 
+
+// admin
 export const createFoodItem = async (req, res) => {
   try {
     const item = req.body;
@@ -30,6 +32,18 @@ export const deleteFoodItem = async (req, res) => {
   }
 };
 
+export const updateFoodAvailability = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const menuItem = await updateFoodAvailabilityStatus(id);
+    res.status(200).json(menuItem);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+// customer
 export const getMenuItemsByRestaurantId = async (req, res) => {
   try {
     const { restaurantId } = req.params;
@@ -60,12 +74,3 @@ export const searchFoodController = async (req, res) => {
   }
 };
 
-export const updateFoodAvailability = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const menuItem = await updateFoodAvailabilityStatus(id);
-    res.status(200).json(menuItem);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};

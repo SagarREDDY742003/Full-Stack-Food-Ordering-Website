@@ -36,8 +36,8 @@ export async function getRestaurantEvents(req, res) {
 
 export async function deleteEvent(req, res) {
   try {
-    const {id} = req.params;
-    await deleteRestaurantEvent(id);
+    const {eventId} = req.params;
+    await deleteRestaurantEvent(eventId);
     res.status(200).json({message:"Event Deleted",success:true});
   } catch (error) {
     if (error instanceof Error) res.status(400).json({ error: error.message });

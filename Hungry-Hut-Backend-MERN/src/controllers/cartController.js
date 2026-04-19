@@ -1,6 +1,6 @@
 import { addItemToCart, clearCart, findCartByUserId, removeCartItemFromCart, updateCartItemQuantity } from "../services/cartService.js";
 
-const addItemToCartController = async(req,res) => {
+export const addItemToCartController = async(req,res) => {
     try {
         const user = req.user;
         const cart = await addItemToCart(req.body,user._id);
@@ -13,7 +13,7 @@ const addItemToCartController = async(req,res) => {
     }
 } ;
 
-const updateCartItemQuantityController = async(req,res) => {
+export const updateCartItemQuantityController = async(req,res) => {
     try {
         const {cartItemId,quantity} = req.body;
         const cart = await updateCartItemQuantity(cartItemId,quantity);
@@ -26,7 +26,7 @@ const updateCartItemQuantityController = async(req,res) => {
     }
 } ;
 
-const removeItemFromCart = async(req,res) => {
+export const removeItemFromCart = async(req,res) => {
     try {
         const {id} = req.body;
         const user = req.user;
@@ -40,7 +40,7 @@ const removeItemFromCart = async(req,res) => {
     }
 } ;
 
-const findUserCart = async(req,res) => {
+export const findUserCart = async(req,res) => {
     try {
         const user = req.user;
         const cart = await findCartByUserId(user._id.toString());
@@ -53,7 +53,7 @@ const findUserCart = async(req,res) => {
     }
 } ;
 
-const clearCartController = async(req,res) => {
+export const clearCartController = async(req,res) => {
     try {
         const user = req.user;
         const cart = await clearCart(user._id.toString());

@@ -1,7 +1,7 @@
 import { createCategory, findCategoryByRestaurantId } from "../services/categoryService.js";
 
 
-async function createCategoryController(req, res) {
+export async function createCategoryController(req, res) {
   try {
     const category = req.body;
     const user = req.user;
@@ -15,7 +15,7 @@ async function createCategoryController(req, res) {
   }
 }
 
-async function getRestaurantsCategoryController(req, res) {
+export async function getRestaurantsCategoryController(req, res) {
   try {
     const {id} = req.params;
     const categories = await findCategoryByRestaurantId(id);

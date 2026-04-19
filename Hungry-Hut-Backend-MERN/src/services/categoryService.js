@@ -1,5 +1,5 @@
-import Category from "../models/category.model";
-import Restaurant from "../models/restaurant.model";
+import Category from "../models/category.model.js";
+import Restaurant from "../models/restaurant.model.js";
 
 export async function createCategory(name, userId) {
   try {
